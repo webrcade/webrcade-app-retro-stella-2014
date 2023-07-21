@@ -11,7 +11,7 @@ import {
   TelevisionWhiteImage,
   GamepadWhiteImage,
   Select,
-  Switch,
+  // Switch,
   WebrcadeContext,
 } from '@webrcade/app-common';
 
@@ -135,7 +135,7 @@ class AtariSettingsTab extends FieldsTab {
   }
 
   render() {
-    const { colorSwitchRef, leftDiffSwitchRef, rightDiffSwitchRef, swapControllersRef } = this;
+    const { colorSwitchRef, leftDiffSwitchRef, rightDiffSwitchRef, /*swapControllersRef*/ } = this;
     const { focusGrid } = this.context;
     const { setValues, values } = this.props;
 

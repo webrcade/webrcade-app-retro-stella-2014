@@ -92,6 +92,13 @@ export class Emulator extends RetroAppWrapper {
   }
 
   async saveState() {
+  }
+
+  isEscapeHackEnabled() {
+    return false;
+  }
+
+  async loadState() {
     // Check cloud storage (eliminate delay when showing settings)
     try {
       await this.getSaveManager().isCloudEnabled(this.loadMessageCallback);
@@ -100,11 +107,36 @@ export class Emulator extends RetroAppWrapper {
     }
   }
 
-  async loadState() {}
+  getPortZeroType() {
+    const props = this.getProps();
+    return props.port0 ? props.port0 : 0;
+  }
+
+  getPortOneType() {
+    const props = this.getProps();
+    return props.port1 ? props.port1 : 0;
+  }
+
+  getPaddleVertical() {
+    const props = this.getProps();
+    return props.paddleVertical && props.paddleVertical === true ? 1 : 0;
+  }
+
+  getPaddleCenter() {
+    const props = this.getProps();
+    return props.paddleCenter !== undefined ? props.paddleCenter : 0;
+  }
+
+  getPaddleSensitivity() {
+    const props = this.getProps();
+    return props.paddleSensitivity !== undefined ? props.paddleSensitivity : 0;
+  }
 
   applyGameSettings() {
     const { Module } = window;
     const props = this.getProps();
+
+    console.log(props);
 
     if (this.leftDifficulty === null) {
       this.leftDifficulty = "b";
