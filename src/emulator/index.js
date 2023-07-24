@@ -132,6 +132,11 @@ export class Emulator extends RetroAppWrapper {
     return props.paddleSensitivity !== undefined ? props.paddleSensitivity : 0;
   }
 
+  getPaddleInverted() {
+    const props = this.getProps();
+    return props.paddleInverted && props.paddleInverted === true ? 1 : 0;
+  }
+
   applyGameSettings() {
     const { Module } = window;
     const props = this.getProps();
