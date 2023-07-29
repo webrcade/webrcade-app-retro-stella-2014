@@ -1,20 +1,23 @@
-# webЯcade Applications: Neo Geo CD Emulator
+# webЯcade Application: Atari 2600 Emulator
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-The Neo Geo CD application for [webЯcade](https://www.webrcade.com) is an emulator for the [Neo Geo CD game console](https://en.wikipedia.org/wiki/Neo_Geo_CD).
+The Atari 2600 application for [webЯcade](https://www.webrcade.com) is an emulator for the [Atari 2600 game console](https://en.wikipedia.org/wiki/Atari_2600).
 
-The underlying emulator is a modified version of the Libretro fork of [NeoCD-Libretro](https://github.com/libretro/neocd_libretro).
+The underlying emulator is a modified version of the Libretro fork of [Stella2014-Libretro](https://github.com/libretro/stella2014-libretro).
 
 <p align="center">
  <a href="https://play.webrcade.com">
-  <img src="https://docs.webrcade.com/assets/images/apps/neogeocd.png" width="90%">
+  <img src="https://docs.webrcade.com/assets/images/apps/2600.png?raw=full?raw=true" width="90%">
  </a>
+ <br>
+ <i>Slide Boy in Maze Land by Vladimir Zuniga
+</i>
 </p>
 
-### Documentation
+## Documentation
 
-The [Neo Geo CD Application Documentation](https://docs.webrcade.com/apps/emulators/neogeocd/) includes [keyboard](https://docs.webrcade.com/apps/emulators/neogeocd/#keyboard) and [gamepad](https://docs.webrcade.com/apps/emulators/neogeocd/#gamepad) control mappings, information related to [Internal Save Memory](https://docs.webrcade.com/apps/emulators/neogeocd/#internal-save-memory) support, and details regarding the use of the emulator within a [webЯcade feed](https://docs.webrcade.com/apps/emulators/neogeocd/#feed). 
+The [Atari 2600 Application Documentation](https://docs.webrcade.com/apps/emulators/2600/) includes [keyboard](https://docs.webrcade.com/apps/emulators/2600/#keyboard) and [gamepad](https://docs.webrcade.com/apps/emulators/2600/#gamepad) control mappings as well as information related to utilizing the emulator within a [webЯcade feed](https://docs.webrcade.com/apps/emulators/2600/#feed). 
 
 ## LICENSE
 
@@ -26,4 +29,5 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 ---
 
-The license presented above is limited to the [webЯcade](https://www.webrcade.com) Neo Geo CD Application. The underlying Libretro NeoCD-Libretro project retains its own specific licensing.
+The license presented above is limited to the Atari 2600 application for [webЯcade](https://www.webrcade.com).  The underlying Libretro Stella2014-Libretro project retains its own specific licensing.
+
