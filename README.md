@@ -1,4 +1,4 @@
-# webЯcade Application: Atari 2600 Emulator
+# webЯcade Application: Atari 2600 Emulator (Stella 2014)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -17,7 +17,7 @@ The underlying emulator is a modified version of the Libretro fork of [Stella201
 
 ## Documentation
 
-The [Atari 2600 Application Documentation](https://docs.webrcade.com/apps/emulators/2600/) includes [keyboard](https://docs.webrcade.com/apps/emulators/2600/#keyboard) and [gamepad](https://docs.webrcade.com/apps/emulators/2600/#gamepad) control mappings as well as information related to utilizing the emulator within a [webЯcade feed](https://docs.webrcade.com/apps/emulators/2600/#feed). 
+The [Atari 2600 Application Documentation](https://docs.webrcade.com/apps/emulators/2600/) includes [keyboard](https://docs.webrcade.com/apps/emulators/2600/#keyboard) and [gamepad](https://docs.webrcade.com/apps/emulators/2600/#gamepad) control mappings as well as information related to utilizing the emulator within a [webЯcade feed](https://docs.webrcade.com/apps/emulators/2600/#feed).
 
 ## LICENSE
 
