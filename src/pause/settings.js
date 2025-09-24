@@ -12,6 +12,8 @@ import {
   GamepadWhiteImage,
   Select,
   // Switch,
+  BlurImage,
+  ShaderSettingsTab,
   WebrcadeContext,
 } from '@webrcade/app-common';
 
@@ -28,17 +30,22 @@ export class AtariSettingsEditor extends Component {
   componentDidMount() {
     const { emulator } = this.props;
 
+    const values = {
+      colorSwitch: emulator.getColorSwitch(),
+      leftDiffSwitch: emulator.getLeftDifficulty(),
+      rightDiffSwitch: emulator.getRightDifficulty(),
+      /*swapControllers: emulator.getSwapControllers(),*/
+      origBilinearMode: emulator.getPrefs().isBilinearEnabled(),
+      bilinearMode: emulator.getPrefs().isBilinearEnabled(),
+      origScreenSize: emulator.getPrefs().getScreenSize(),
+      screenSize: emulator.getPrefs().getScreenSize(),
+    };
+
+    this.shaderService = this.props.emulator.getShadersService();
+    this.shaderService.addEditorValues(values);
+
     this.setState({
-      values: {
-        colorSwitch: emulator.getColorSwitch(),
-        leftDiffSwitch: emulator.getLeftDifficulty(),
-        rightDiffSwitch: emulator.getRightDifficulty(),
-        /*swapControllers: emulator.getSwapControllers(),*/
-        origBilinearMode: emulator.getPrefs().isBilinearEnabled(),
-        bilinearMode: emulator.getPrefs().isBilinearEnabled(),
-        origScreenSize: emulator.getPrefs().getScreenSize(),
-        screenSize: emulator.getPrefs().getScreenSize(),
-      },
+      values: values,
     });
   }
 
@@ -57,7 +64,7 @@ export class AtariSettingsEditor extends Component {
     return (
       <EditorScreen
         showCancel={true}
-        onOk={() => {
+        onOk={async () => {
           emulator.setColorSwitch(values.colorSwitch);
           emulator.setLeftDifficulty(values.leftDiffSwitch);
           emulator.setRightDifficulty(values.rightDiffSwitch);
@@ -76,6 +83,10 @@ export class AtariSettingsEditor extends Component {
           if (updated) {
             emulator.getPrefs().save();
           }
+
+          // Set the shader
+          await this.shaderService.setShader(values.shaderId);
+
           onClose();
         }}
         onClose={onClose}
@@ -107,6 +118,20 @@ export class AtariSettingsEditor extends Component {
                 setValues={setValues}
               />
             ),
+          },
+          {
+            image: BlurImage,
+            label: 'Shader Settings',
+            content: (
+              <ShaderSettingsTab
+                shaderService={this.shaderService}
+                emulator={emulator}
+                isActive={tabIndex === 2}
+                setFocusGridComps={setFocusGridComps}
+                values={values}
+                setValues={setValues}
+              />
+            )
           }
         ]}
       />
