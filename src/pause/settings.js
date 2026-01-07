@@ -35,8 +35,8 @@ export class AtariSettingsEditor extends Component {
       leftDiffSwitch: emulator.getLeftDifficulty(),
       rightDiffSwitch: emulator.getRightDifficulty(),
       /*swapControllers: emulator.getSwapControllers(),*/
-      origBilinearMode: emulator.getPrefs().isBilinearEnabled(),
-      bilinearMode: emulator.getPrefs().isBilinearEnabled(),
+      origBilinearMode: emulator.getPrefs().getBilinearMode(),
+      bilinearMode: emulator.getPrefs().getBilinearMode(),
       origScreenSize: emulator.getPrefs().getScreenSize(),
       screenSize: emulator.getPrefs().getScreenSize(),
     };
@@ -71,8 +71,7 @@ export class AtariSettingsEditor extends Component {
           /*emulator.setSwapControllers(values.swapControllers);*/
           let updated = false;
           if (values.origBilinearMode !== values.bilinearMode) {
-            emulator.getPrefs().setBilinearEnabled(values.bilinearMode);
-            emulator.updateBilinearFilter();
+            emulator.getPrefs().setBilinearMode(values.bilinearMode);
             updated = true;
           }
           if (values.origScreenSize !== values.screenSize) {
@@ -86,6 +85,7 @@ export class AtariSettingsEditor extends Component {
 
           // Set the shader
           await this.shaderService.setShader(values.shaderId);
+          emulator.updateBilinearFilter();
 
           onClose();
         }}
@@ -112,6 +112,7 @@ export class AtariSettingsEditor extends Component {
             content: (
               <AppDisplaySettingsTab
                 emulator={emulator}
+                isBilinearMode={true}
                 isActive={tabIndex === 1}
                 setFocusGridComps={setFocusGridComps}
                 values={values}
