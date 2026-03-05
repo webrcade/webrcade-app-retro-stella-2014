@@ -12,6 +12,8 @@ import {
   GamepadWhiteImage,
   Select,
   // Switch,
+  BlurImage,
+  ShaderSettingsTab,
   WebrcadeContext,
 } from '@webrcade/app-common';
 
@@ -28,17 +30,22 @@ export class AtariSettingsEditor extends Component {
   componentDidMount() {
     const { emulator } = this.props;
 
+    const values = {
+      colorSwitch: emulator.getColorSwitch(),
+      leftDiffSwitch: emulator.getLeftDifficulty(),
+      rightDiffSwitch: emulator.getRightDifficulty(),
+      /*swapControllers: emulator.getSwapControllers(),*/
+      origBilinearMode: emulator.getPrefs().getBilinearMode(),
+      bilinearMode: emulator.getPrefs().getBilinearMode(),
+      origScreenSize: emulator.getPrefs().getScreenSize(),
+      screenSize: emulator.getPrefs().getScreenSize(),
+    };
+
+    this.shaderService = this.props.emulator.getShadersService();
+    this.shaderService.addEditorValues(values);
+
     this.setState({
-      values: {
-        colorSwitch: emulator.getColorSwitch(),
-        leftDiffSwitch: emulator.getLeftDifficulty(),
-        rightDiffSwitch: emulator.getRightDifficulty(),
-        /*swapControllers: emulator.getSwapControllers(),*/
-        origBilinearMode: emulator.getPrefs().isBilinearEnabled(),
-        bilinearMode: emulator.getPrefs().isBilinearEnabled(),
-        origScreenSize: emulator.getPrefs().getScreenSize(),
-        screenSize: emulator.getPrefs().getScreenSize(),
-      },
+      values: values,
     });
   }
 
@@ -57,15 +64,14 @@ export class AtariSettingsEditor extends Component {
     return (
       <EditorScreen
         showCancel={true}
-        onOk={() => {
+        onOk={async () => {
           emulator.setColorSwitch(values.colorSwitch);
           emulator.setLeftDifficulty(values.leftDiffSwitch);
           emulator.setRightDifficulty(values.rightDiffSwitch);
           /*emulator.setSwapControllers(values.swapControllers);*/
           let updated = false;
           if (values.origBilinearMode !== values.bilinearMode) {
-            emulator.getPrefs().setBilinearEnabled(values.bilinearMode);
-            emulator.updateBilinearFilter();
+            emulator.getPrefs().setBilinearMode(values.bilinearMode);
             updated = true;
           }
           if (values.origScreenSize !== values.screenSize) {
@@ -76,6 +82,11 @@ export class AtariSettingsEditor extends Component {
           if (updated) {
             emulator.getPrefs().save();
           }
+
+          // Set the shader
+          await this.shaderService.setShader(values.shaderId);
+          emulator.updateBilinearFilter();
+
           onClose();
         }}
         onClose={onClose}
@@ -101,12 +112,27 @@ export class AtariSettingsEditor extends Component {
             content: (
               <AppDisplaySettingsTab
                 emulator={emulator}
+                isBilinearMode={true}
                 isActive={tabIndex === 1}
                 setFocusGridComps={setFocusGridComps}
                 values={values}
                 setValues={setValues}
               />
             ),
+          },
+          {
+            image: BlurImage,
+            label: 'Shader Settings',
+            content: (
+              <ShaderSettingsTab
+                shaderService={this.shaderService}
+                emulator={emulator}
+                isActive={tabIndex === 2}
+                setFocusGridComps={setFocusGridComps}
+                values={values}
+                setValues={setValues}
+              />
+            )
           }
         ]}
       />
