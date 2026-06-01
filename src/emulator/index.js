@@ -132,6 +132,10 @@ export class Emulator extends RetroAppWrapper {
   //   return new ScriptAudioProcessor(2, 48000).setDebug(this.debug);
   // }
 
+  getHashFileExtension() {
+    return 'a26';
+  }
+
   setFrameRate(rate) {
     rate = Math.round(rate);
     LOG.info("## frame rate set to: " + rate);
