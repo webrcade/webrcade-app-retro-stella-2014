@@ -1,11 +1,11 @@
 import {
+  BasicRetroAppWrapper,
   DisplayLoop,
-  RetroAppWrapper,
   ScriptAudioProcessor,
   LOG,
 } from '@webrcade/app-common';
 
-export class Emulator extends RetroAppWrapper {
+export class Emulator extends BasicRetroAppWrapper {
 
   constructor(app, debug = false) {
     super(app, debug);
@@ -195,6 +195,16 @@ export class Emulator extends RetroAppWrapper {
   isEscapeHackEnabled() {
     return false;
   }
+
+  onFrame() {
+    super.onFrame();
+  }
+
+  // Base class default pauses on any tap anywhere on screen -- redundant
+  // (and disruptive) now that there's a dedicated Pause button in the
+  // touch overlay. Same override every other TouchOverlay app uses for
+  // the same reason.
+  createTouchListener() {}
 
   async loadState() {
     // Check cloud storage (eliminate delay when showing settings)
